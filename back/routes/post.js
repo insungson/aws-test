@@ -39,7 +39,7 @@ const upload = multer({
 });
 
 
-router.post('/', isLoggedIn, upload,none(), async (req, res, next) => {
+router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {
   try {
     const hashtags = req.body.content.match(/#[^\s]+/g);
     const newPost = await db.Post.create({
