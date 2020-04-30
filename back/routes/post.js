@@ -19,12 +19,11 @@ AWS.config.update({
 //      (credentials 은 
 //      Access key ID: AKIAIOSFODNN7EXAMPLE, Secret access key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY 
 //      로 이뤄져 있다)
-// 여기선 .aws 폴더를 만들고 
+// 여기선 .aws 폴더를 만들고
 //region : 필수요소, 서비스 요청이 이뤄지는 지역을 지정한다
 //maxRetries : 선택요소, 요청의 최대횟수를 지정한다
 //logger : 선택요소, 디버깅 정보가 기록되는 로깅 객체를 지정한다
 //update : 선택요소, 현재 구성을 새로운 값으로 업데이트 한다
-
 const upload = multer({
   storage: multerS3({
     s3: new AWS.S3(),
