@@ -24,6 +24,7 @@ AWS.config.update({
 //maxRetries : 선택요소, 요청의 최대횟수를 지정한다
 //logger : 선택요소, 디버깅 정보가 기록되는 로깅 객체를 지정한다
 //update : 선택요소, 현재 구성을 새로운 값으로 업데이트 한다
+
 const upload = multer({
   storage: multerS3({
     s3: new AWS.S3(),
