@@ -19,9 +19,9 @@ const Post = ({ id }) => {
         }, {
           property: 'og:description', content: singlePost.content,
         }, {
-          property: 'og:image', content: singlePost.Images[0] ? singlePost.Images[0].src : 'http://travelers-places/favicon.ico',
+          property: 'og:image', content: singlePost.Images[0] ? singlePost.Images[0].src : 'http://travelers-places.com/favicon.ico',
         }, {
-          property: 'og:url', content: `http://travelers-places/post/${id}`,
+          property: 'og:url', content: `http://travelers-places.com/post/${id}`,
         }]}
       />
       <div itemScope="content">{singlePost.content}</div>
