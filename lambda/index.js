@@ -3,7 +3,7 @@ const Sharp = require('sharp');
 
 const S3 = new AWS.S3({ region: 'us-east-2b' });
 
-export.handler = async (event, context, callback) => {
+exports.handler = async (event, context, callback) => {
   const Bucket = event.Records[0].s3.bucket.name;
   const key = event.Records[0].s3.object.key;
   const filename = key.split('/')[key.split('/').length - 1];
