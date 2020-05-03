@@ -28,7 +28,7 @@ AWS.config.update({
 const upload = multer({
   storage: multerS3({
     s3: new AWS.S3(),
-    bucket: 'react-nodebird-place',//aws 버켓이름
+    bucket: 'travelers-places-place',//aws 버켓이름
     key(req, file, cb){
       cb(null, `original/${+new Date()}${path.basename(file.originalname)}`);
       //original 이란 폴더안에 시간 + 파일이름 으로 S3 공간에 넣어준다
