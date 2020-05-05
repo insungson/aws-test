@@ -5,7 +5,7 @@ const S3 = new AWS.S3({ region: 'us-east-2' });
 
 exports.handler = async (event, context, callback) => {
   const Bucket = event.Records[0].s3.bucket.name;
-  const key = event.Records[0].s3.object.key;
+  const Key = event.Records[0].s3.object.key;
   const filename = key.split('/')[key.split('/').length - 1];
   const ext = key.split('.')[key.split('.').length - 1];
   console.log(key, filename, ext);
