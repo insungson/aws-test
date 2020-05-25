@@ -9,8 +9,30 @@ export const initialState = {
   isAddingComment: false,
   addCommentErrorReason: '',
   commentAdded: false,
-  singlePost: null,
+  singlePost: null, //게시글1개를 자세히 볼 수 있는 경우
+  hasMorePost: false, //게시글 인피니트 스크롤링의 유무
+  mapLocation: {}, //위치정보 (lat,lng,image,name)
+  placeNearBys: [], // 근처위치정보
+  mapPlacename: '',//PosrForm 에서 나온 place 이름
+  mapOpen: false, // 지도컴포넌트 열기닫기
 };
+
+export const REQUEST_PLACE_NEARBY = 'REQUEST_PLACE_NEARBY';
+export const SUCCESS_PLACE_NEARBY = 'SUCCESS_PLACE_NEARBY';
+export const FAILURE_PLACE_NEARBY = 'FAILURE_PLACE_NEARBY';
+
+export const FIND_PLACE_REQUEST = 'FIND_PLACE_REQUEST';
+export const FIND_PLACE_SUCCESS = 'FIND_PLACE_SUCCESS';
+export const FIND_PLACE_FAILURE = 'FIND_PLACE_FAILURE';
+
+export const CLOSE_MAP = 'CLOSE_MAP';
+export const ADD_PLACE = 'ADD_PLACE';
+export const ADD_MAP_LOCATION = 'ADD_MAP_LOCATION';
+export const REMOVE_PLACE ='REMOVE_PLACE';
+
+export const LOAD_AUTOPLACE_REQUEST = 'LOAD_AUTOPLACE_REQUEST';
+export const LOAD_AUTOPLACE_SUCCESS = 'LOAD_AUTOPLACE_SUCCESS';
+export const LOAD_AUTOPLACE_FAILURE = 'LOAD_AUTOPLACE_FAILURE';
 
 export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST';
 export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS';
@@ -190,6 +212,64 @@ export default (state = initialState, action) => {
       }
       case LOAD_POST_SUCCESS: {
         draft.singlePost = action.data;
+        break;
+      }   
+      case LOAD_AUTOPLACE_REQUEST: {
+        draft.autoOptions = [];
+        break;
+      }
+      case LOAD_AUTOPLACE_SUCCESS: {
+        action.data.forEach((v) => {
+          draft.autoOptions.push({ value: v.terms[0].value });
+        });
+        break;
+      }
+      case LOAD_AUTOPLACE_FAILURE: {
+        break;
+      }
+      case ADD_MAP_LOCATION: {
+        draft.mapPlacename = action.data;
+        break;
+      }
+      case CLOSE_MAP: {
+        draft.mapOpen = false;
+        break;
+      }
+      case REMOVE_PLACE: {
+        draft.mapPlacename = '';
+        break;
+      }
+      case ADD_PLACE: {
+        draft.mapOpen = true;
+        break;
+      }
+      case FIND_PLACE_REQUEST: {
+        draft.mapLocation = {};
+        draft.placeNearBys = [];
+        break;
+      }
+      case FIND_PLACE_SUCCESS: {
+        const placegoogle = action.data;
+        draft.mapLocation.lat = placegoogle.geometry.location.lat;
+        draft.mapLocation.lng = placegoogle.geometry.location.lng;
+        draft.mapLocation.name = placegoogle.name;
+        draft.mapLocation.image = placegoogle.photos[0].photo_reference;
+        break;
+      }
+      case FIND_PLACE_FAILURE: {
+        break;
+      }
+      case REQUEST_PLACE_NEARBY: {
+        draft.mapOpen = true;
+        draft.placeNearBys = [];
+        break;
+      }
+      case SUCCESS_PLACE_NEARBY: {
+        draft.placeNearBys.push(action.data);
+        break;
+      }
+      case FAILURE_PLACE_NEARBY: {
+        draft.mapOpen = false;
         break;
       }
       default: {

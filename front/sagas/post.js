@@ -34,6 +34,9 @@ import {
   UPLOAD_IMAGES_FAILURE,
   UPLOAD_IMAGES_REQUEST,
   UPLOAD_IMAGES_SUCCESS, LOAD_POST_SUCCESS, LOAD_POST_FAILURE, LOAD_POST_REQUEST,
+  LOAD_AUTOPLACE_REQUEST, LOAD_AUTOPLACE_SUCCESS, LOAD_AUTOPLACE_FAILURE,
+  FIND_PLACE_REQUEST, FIND_PLACE_SUCCESS, FIND_PLACE_FAILURE,
+  REQUEST_PLACE_NEARBY, SUCCESS_PLACE_NEARBY, FAILURE_PLACE_NEARBY,
 } from '../reducers/post';
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
 
@@ -356,6 +359,90 @@ function* watchLoadPost() {
   yield takeLatest(LOAD_POST_REQUEST, loadPost);
 }
 
+function loadAutoPlaceAPI(place) {
+  return axios.get(`/place/auto/${encodeURIComponent(place)}`);
+}
+
+function* loadAutoPlace(action) {
+  try {
+    console.log('자동장소찾기',action.data);
+    const result = yield call(loadAutoPlaceAPI, action.data);
+    yield put({
+      type: LOAD_AUTOPLACE_SUCCESS,
+      data: result.data,
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: LOAD_AUTOPLACE_FAILURE,
+    });
+  }
+}
+
+function* watchLoadAutoPlace() {
+  yield takeEvery(LOAD_AUTOPLACE_REQUEST, loadAutoPlace);
+}
+
+function findPlaceAPI(place) {
+  return axios.get(`/place/${encodeURIComponent(place)}`);
+}
+
+function findPlaceAPI1(placeData) {
+  return axios.post('/place', { data: placeData }, { withCredentials: true });
+}
+
+function* findPlace(action) {
+  try {
+    console.log('장소찾기',action.data);
+    const result = yield call(findPlaceAPI, action.data);
+    // 여기서 place_id를 받아서 다시 post 방식으로 요청 detail 에 대한 post router 만들기
+    console.log('장소결과', result.data);
+    const result1 = yield call(findPlaceAPI1, result.data);
+    console.log('장소결과1', result1.data);
+    yield put({
+      type: FIND_PLACE_SUCCESS,
+      data: result1.data,
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: FIND_PLACE_FAILURE,
+    });
+  }
+}
+
+function* watchFindPlace() {
+  yield takeLatest(FIND_PLACE_REQUEST, findPlace);
+}
+
+function placeNearByAPI(locaData, type) {
+  const placeData = `${locaData.lat},${locaData.lng}`;
+  const placeType = locaData.type;
+  console.log('placeData', placeData);
+  return axios.post('/place/nearby', { data: placeData, type }, { withCredentials: true });
+}
+
+function* placeNearBy(action) {
+  try {
+    const result = yield call(placeNearByAPI, action.location, action.placeType);
+    console.log('근방정보들', result);
+    yield put({
+      type: SUCCESS_PLACE_NEARBY,
+      data: result,
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: FAILURE_PLACE_NEARBY,
+    });
+  }
+}
+
+function* watchPlaceNearBy() {
+  yield takeLatest(REQUEST_PLACE_NEARBY, placeNearBy);
+}
+
+
 export default function* postSaga() {
   yield all([
     fork(watchLoadMainPosts),
@@ -370,5 +457,8 @@ export default function* postSaga() {
     fork(watchRetweet),
     fork(watchRemovePost),
     fork(watchLoadPost),
+    fork(watchLoadAutoPlace),
+    fork(watchFindPlace),
+    fork(watchPlaceNearBy),
   ]);
 }

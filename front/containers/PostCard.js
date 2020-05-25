@@ -142,6 +142,7 @@ const PostCard = memo(({ post }) => {
                 title={post.Retweet.User.nickname}
                 description={<PostCardContent postData={post.Retweet.content} />} // a tag x -> Link
               />
+              <div style={{ color: "red" }}>장소:{post.Retweet.place}</div>
             </Card>
           )
           : (
@@ -156,6 +157,7 @@ const PostCard = memo(({ post }) => {
                 title={post.User.nickname}
                 description={<PostCardContent postData={post.content} />} // a tag x -> Link
               />
+              <div style={{ color: "red" }}>장소: {post.place}</div>
             </>
           )}
       </Card>

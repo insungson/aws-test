@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import Router from 'next/router';
 import LoginForm from '../containers/LoginForm';
 import UserProfile from '../containers/UserProfile';
+import RankCard from './RankLike';
 
 const AppLayout = ({ children }) => {
   const { me } = useSelector(state => state.user);
@@ -37,7 +38,7 @@ const AppLayout = ({ children }) => {
           {children}
         </Col>
         <Col xs={24} md={6}>
-          <Link href="https://www.zerocho.com"><a target="_blank">Made by ZeroCho</a></Link>
+          <RankCard />
         </Col>
       </Row>
     </div>

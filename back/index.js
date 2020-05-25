@@ -14,6 +14,7 @@ const userAPIRouter = require('./routes/user');
 const postAPIRouter = require('./routes/post');
 const postsAPIRouter = require('./routes/posts');
 const hashtagAPIRouter = require('./routes/hashtag');
+const placeAPIRouter = require('./routes/place');
 
 const prod = process.env.NODE_ENV === 'production';
 dotenv.config();
@@ -63,6 +64,7 @@ app.use('/api/user', userAPIRouter);
 app.use('/api/post', postAPIRouter);
 app.use('/api/posts', postsAPIRouter);
 app.use('/api/hashtag', hashtagAPIRouter);
+app.use('/api/place', placeAPIRouter);
 
 app.listen(prod ? process.env.PORT : 3065, () => {
   console.log(`server is running on ${process.env.PORT}`);
