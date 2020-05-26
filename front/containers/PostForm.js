@@ -47,12 +47,12 @@ const PostForm = () => {
     });
     formData.append('content', text);
     formData.append('place', mapPlacename);
-    
+
     dispatch({
       type: ADD_POST_REQUEST,
       data: formData,
     });
-  }, [text, imagePaths]);
+  }, [text, imagePaths,mapPlacename]);
 
   const onChangeText = useCallback((e) => {
     setText(e.target.value);
