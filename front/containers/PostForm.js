@@ -8,6 +8,7 @@ import SearchNearButton from './SearchNearButton';
 const PostForm = () => {
   const dispatch = useDispatch();
   const [text, setText] = useState('');
+  const [mapTermError, setMapTermError] = useState(true);
   const { imagePaths, isAddingPost, postAdded, mapPlacename, mapOpen } = useSelector(state => state.post);
   const imageInput = useRef();
 
@@ -37,11 +38,16 @@ const PostForm = () => {
     if (!text || !text.trim()) {
       return alert('게시글을 작성하세요.');
     }
+    if (!mapPlacename) {
+      return alert('위치를 등록하세요');
+    }
     const formData = new FormData();
     imagePaths.forEach((i) => {
       formData.append('image', i);
     });
     formData.append('content', text);
+    formData.append('place', mapPlacename);
+    
     dispatch({
       type: ADD_POST_REQUEST,
       data: formData,
