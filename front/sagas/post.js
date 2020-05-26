@@ -359,30 +359,6 @@ function* watchLoadPost() {
   yield takeLatest(LOAD_POST_REQUEST, loadPost);
 }
 
-function loadAutoPlaceAPI(place) {
-  return axios.get(`/place/auto/${encodeURIComponent(place)}`);
-}
-
-function* loadAutoPlace(action) {
-  try {
-    console.log('자동장소찾기',action.data);
-    const result = yield call(loadAutoPlaceAPI, action.data);
-    yield put({
-      type: LOAD_AUTOPLACE_SUCCESS,
-      data: result.data,
-    });
-  } catch (e) {
-    console.error(e);
-    yield put({
-      type: LOAD_AUTOPLACE_FAILURE,
-    });
-  }
-}
-
-function* watchLoadAutoPlace() {
-  yield takeEvery(LOAD_AUTOPLACE_REQUEST, loadAutoPlace);
-}
-
 function findPlaceAPI(place) {
   return axios.get(`/place/${encodeURIComponent(place)}`);
 }
