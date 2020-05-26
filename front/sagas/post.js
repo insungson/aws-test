@@ -433,7 +433,6 @@ export default function* postSaga() {
     fork(watchRetweet),
     fork(watchRemovePost),
     fork(watchLoadPost),
-    fork(watchLoadAutoPlace),
     fork(watchFindPlace),
     fork(watchPlaceNearBy),
   ]);
