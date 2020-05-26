@@ -19,6 +19,8 @@ const Post = ({ id }) => {
         }, {
           property: 'og:description', content: singlePost.content,
         }, {
+          property: 'og:place', content: singlePost.place,
+        }, {
           property: 'og:image', content: singlePost.Images[0] ? singlePost.Images[0].src : 'http://travelers-places.com/favicon.ico',
         }, {
           property: 'og:url', content: `http://travelers-places.com/post/${id}`,
@@ -26,6 +28,7 @@ const Post = ({ id }) => {
       />
       <div itemScope="content">{singlePost.content}</div>
       <div itemScope="author">{singlePost.User.nickname}</div>
+      <div itemScope="place">{singlePost.place}</div>
       <div>
         {singlePost.Images[0] && <img src={singlePost.Images[0].src} />}
       </div>
