@@ -44,6 +44,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {
     const hashtags = req.body.content.match(/#[^\s]+/g);
     const newPost = await db.Post.create({
       content: req.body.content,
+      place: req.body.place,
       UserId: req.user.id,
     });
     if(hashtags) {
