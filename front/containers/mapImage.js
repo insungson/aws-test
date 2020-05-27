@@ -10,7 +10,6 @@ const MapImage = ({ location }) => { // location에는 lat,lng,image,placename �
   const center1 = location.lat ? { lat: location.lat, lng: location.lng } : { lat: 37.540705, lng: 126.956764 };
   const createInfoWindow = (map) => {
     const testPlace = { ...placeNearBys };
-    console.log('나오는지 체크', testPlace);
 
     const addPlace = () => {
       dispatch({
@@ -39,9 +38,7 @@ const MapImage = ({ location }) => { // location에는 lat,lng,image,placename �
     let placeNearData = { ...placeNearBys }; //리덕스는얕은 복사를 사용
     if (placeNearBys.length !== 0) {
 
-      console.log('placeNearBys', placeNearBys[0].data);
       placeNearBys[0].data.forEach((a) => {
-        console.log('식당정보',a);
         let div = document.createElement('div');
         div.textContent = a.name;
         div.setAttribute('style',
@@ -63,9 +60,7 @@ const MapImage = ({ location }) => { // location에는 lat,lng,image,placename �
         title: location.name,
       });
       const data1 = { map, placeNearData };
-      console.log('data', data1);
       marker.addListener('click', (e) => {
-        console.log('뭘가르킬까?', e, data1);
         createInfoWindow(map);
       });
     }
