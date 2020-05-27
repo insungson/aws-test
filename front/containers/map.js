@@ -33,7 +33,7 @@ const Map = () => {
       <div>
         <Input.Search
           enterButton
-          style={{ verticalAlign: 'middle' }}
+          style={{ verticalAlign: 'middle', width: 600 }}
           onSearch={onSearch}
         />
       </div>

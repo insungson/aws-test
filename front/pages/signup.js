@@ -99,7 +99,7 @@ const Signup = () => {
           {passwordError && <SignupError>비밀번호가 일치하지 않습니다.</SignupError>}
         </div>
         <div>
-          <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>제로초 말을 잘 들을 것을 동의합니다.</Checkbox>
+          <Checkbox name="user-term" checked={term} onChange={onChangeTerm}>회원가입에 동의합니다.</Checkbox>
           {termError && <SignupError>약관에 동의하셔야 합니다.</SignupError>}
         </div>
         <div style={{ marginTop: 10 }}>

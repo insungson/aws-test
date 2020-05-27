@@ -28,7 +28,7 @@ const NodeBird = ({ Component, store, pageProps }) => {
     <Container>
       <Provider store={store}>
         <Helmet
-          title="NodeBird"
+          title="Travelers-Places"
           htmlAttributes={{ lang: 'ko' }}
           meta={[{
             charset: 'UTF-8',
@@ -38,11 +38,11 @@ const NodeBird = ({ Component, store, pageProps }) => {
           }, {
             'http-equiv': 'X-UA-Compatible', content: 'IE=edge',
           }, {
-            name: 'description', content: '제로초의 NodeBird SNS',
+            name: 'description', content: '여행자들의 정보공유 Travelers-Places',
           }, {
-            name: 'og:title', content: 'NodeBird',
+            name: 'og:title', content: 'Travelers-Places',
           }, {
-            name: 'og:description', content: '제로초의 NodeBird SNS',
+            name: 'og:description', content: '여행자들의 정보공유 Travelers-Places',
           }, {
             property: 'og:type', content: 'website',
           }, {
