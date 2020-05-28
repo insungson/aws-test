@@ -24,7 +24,7 @@ const AppLayout = ({ children }) => {
           <Input.Search
             enterButton
             style={{ verticalAlign: 'middle' }}
-            placeholder="여기서 태그 검색을 할 수 있습니다"
+            placeholder="태그 검색"
             onSearch={onSearch}
           />
         </Menu.Item>
