@@ -19,7 +19,7 @@ const UserProfile = () => {
       actions={[
         <Link href="/profile" prefetch key="twit">
           <a>
-            <div>짹짹<br />{me.Posts.length}</div>
+            <div>게시글<br />{me.Posts.length}</div>
           </a>
         </Link>,
         <Link href="/profile" prefetch key="following">
