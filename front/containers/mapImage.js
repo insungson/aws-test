@@ -81,7 +81,7 @@ const MapImage = ({ location }) => { // location에는 lat,lng,image,placename �
     if (!window.google) {
       const s = document.createElement('script');
       s.type = 'text/javascript';
-      s.src = 'https://maps.google.com/maps/api/js?key=AIzaSyCddFzczTKqicDNJ_kpdRc8laJr9JopSwI';
+      s.src = 'https://maps.google.com/maps/api/js?key=AIzaSyCapt1Yrbj6hMaxCUR7Z1orFOUAb2rzz_w';
       const x = document.getElementsByTagName('script')[0];
       x.parentNode.insertBefore(s, x);
       s.addEventListener('load', () => {
