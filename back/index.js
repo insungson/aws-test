@@ -15,6 +15,7 @@ const postAPIRouter = require('./routes/post');
 const postsAPIRouter = require('./routes/posts');
 const hashtagAPIRouter = require('./routes/hashtag');
 const placeAPIRouter = require('./routes/place');
+const googleAPIRouter = require('./routes/googledrive');
 
 const prod = process.env.NODE_ENV === 'production';
 dotenv.config();
