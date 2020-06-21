@@ -37,8 +37,63 @@ import {
   LOAD_AUTOPLACE_REQUEST, LOAD_AUTOPLACE_SUCCESS, LOAD_AUTOPLACE_FAILURE,
   FIND_PLACE_REQUEST, FIND_PLACE_SUCCESS, FIND_PLACE_FAILURE,
   REQUEST_PLACE_NEARBY, SUCCESS_PLACE_NEARBY, FAILURE_PLACE_NEARBY,
+  GOOGLEDRIVE_UPLOAD_REQUEST, GOOGLEDRIVE_UPLOAD_SUCCESS, GOOGLEDRIVE_UPLOAD_FAILURE,
+  TEMPIMAGE_REMOVE_REQUEST, TEMPIMAGE_REMOVE_SUCCESS, TEMPIMAGE_REMOVE_FAILURE,
 } from '../reducers/post';
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
+
+
+function TempImageRemoveAPI() {
+  return axios.delete('/googledrive/TempImage', {
+    withCredentials: true,
+  });
+}
+
+function* TempImageRemove() {
+  try {
+    const result = yield call(TempImageRemoveAPI);
+    console.log('결과', result);
+    yield put({
+      type: TEMPIMAGE_REMOVE_SUCCESS,
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: TEMPIMAGE_REMOVE_FAILURE,
+    });
+  }
+}
+
+function* watchTempImageRemove() {
+  yield takeLatest(TEMPIMAGE_REMOVE_REQUEST, TempImageRemove);
+}
+
+function GoogleDriveUploadAPI(formData) {
+  return axios.post('/googledrive/googleDriveUpload', formData, {
+    withCredentials: true,
+  });
+}
+
+function* GoogleDriveUpload(action) {
+  try {
+    const result = yield call(GoogleDriveUploadAPI, action.data);
+    yield put({
+      type: GOOGLEDRIVE_UPLOAD_SUCCESS,
+      data: result.data,
+    });
+  } catch (error) {
+    console.error(error);
+    yield put({
+      type: GOOGLEDRIVE_UPLOAD_FAILURE,
+      error: error,
+    });
+  }
+}
+
+function* watchGoogleDriveUpload() {
+  yield takeLatest(GOOGLEDRIVE_UPLOAD_REQUEST, GoogleDriveUpload);
+}
+
 
 function addPostAPI(postData) {
   return axios.post('/post', postData, {
@@ -435,5 +490,7 @@ export default function* postSaga() {
     fork(watchLoadPost),
     fork(watchFindPlace),
     fork(watchPlaceNearBy),
+    fork(watchGoogleDriveUpload),
+    fork(watchTempImageRemove),
   ]);
 }

@@ -39,6 +39,7 @@ if (prod) {
 }
 
 app.use('/', express.static('uploads'));
+app.use('/ex', express.static('uploads1'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -57,7 +58,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-  res.send('react nodebird 백엔드 정상 동작!');
+  res.send('react trevelersplace 백엔드 정상 동작!');
 });
 
 app.use('/api/user', userAPIRouter);
@@ -65,6 +66,7 @@ app.use('/api/post', postAPIRouter);
 app.use('/api/posts', postsAPIRouter);
 app.use('/api/hashtag', hashtagAPIRouter);
 app.use('/api/place', placeAPIRouter);
+app.use('/api/googledrive', googleAPIRouter);
 
 app.listen(prod ? process.env.PORT : 3065, () => {
   console.log(`server is running on ${process.env.PORT}`);

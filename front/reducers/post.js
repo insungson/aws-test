@@ -15,7 +15,19 @@ export const initialState = {
   placeNearBys: [], // 근처위치정보
   mapPlacename: '',//PosrForm 에서 나온 place 이름
   mapOpen: false, // 지도컴포넌트 열기닫기
+  imageSec: [], //구글드라이브 미리보기용
+  imageSecRemove: false, //구글드라이브용
 };
+
+//구글드라이브용 액션명령어
+export const GOOGLEDRIVE_UPLOAD_REQUEST = 'GOOGLEDRIVE_UPLOAD_REQUEST';
+export const GOOGLEDRIVE_UPLOAD_SUCCESS = 'GOOGLEDRIVE_UPLOAD_SUCCESS';
+export const GOOGLEDRIVE_UPLOAD_FAILURE = 'GOOGLEDRIVE_UPLOAD_FAILURE';
+
+export const TEMPIMAGE_REMOVE_REQUEST = 'TEMPIMAGE_REMOVE_REQUEST';
+export const TEMPIMAGE_REMOVE_SUCCESS = 'TEMPIMAGE_REMOVE_SUCCESS';
+export const TEMPIMAGE_REMOVE_FAILURE = 'TEMPIMAGE_REMOVE_FAILURE';
+//
 
 export const REQUEST_PLACE_NEARBY = 'REQUEST_PLACE_NEARBY';
 export const SUCCESS_PLACE_NEARBY = 'SUCCESS_PLACE_NEARBY';
@@ -270,6 +282,28 @@ export default (state = initialState, action) => {
       }
       case FAILURE_PLACE_NEARBY: {
         draft.mapOpen = false;
+        break;
+      }
+      case GOOGLEDRIVE_UPLOAD_REQUEST: {
+        break;
+      }
+      case GOOGLEDRIVE_UPLOAD_SUCCESS: {
+        draft.imageSec.push(action.data);
+        draft.imageSecRemove = true;
+        break;
+      }
+      case GOOGLEDRIVE_UPLOAD_FAILURE: {
+        break;
+      }
+      case TEMPIMAGE_REMOVE_REQUEST: {
+        draft.imageSec = [];
+        draft.imageSecRemove = false;
+        break;
+      }
+      case TEMPIMAGE_REMOVE_SUCCESS: {
+        break;
+      }
+      case TEMPIMAGE_REMOVE_FAILURE: {
         break;
       }
       default: {

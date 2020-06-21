@@ -7,6 +7,7 @@ import Router from 'next/router';
 import LoginForm from '../containers/LoginForm';
 import UserProfile from '../containers/UserProfile';
 import RankCard from './RankLike';
+import GoogleDrive from '../containers/GoogleDrive';
 
 const AppLayout = ({ children }) => {
   const { me } = useSelector(state => state.user);
@@ -40,6 +41,7 @@ const AppLayout = ({ children }) => {
         </Col>
         <Col xs={24} md={6}>
           <RankCard />
+          <GoogleDrive />
         </Col>
       </Row>
     </div>
